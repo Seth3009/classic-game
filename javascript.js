@@ -31,15 +31,17 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game(){
-    for (let i = 0; i < 5; i++){
+    for (let i = 1; i < 6; i++){
         const playerSelection = playerHand();
         const computerSelection = computerPlay();
         if(playerSelection === undefined){
-            console.log("Invalid input, you Lose!")
+            console.log("Game " + i + ": " + "Unknown hand form, you Lose!")
+            console.log("============================");
         } else {
-        console.log(playerSelection);
-        console.log(computerSelection);
-        console.log(playRound(playerSelection, computerSelection));
+        console.log("Player hand: " + playerSelection);
+        console.log("Bot hand: " + computerSelection);
+        console.log("Game " + i + ": " + playRound(playerSelection, computerSelection));
+        console.log("============================");
     }}
 }
 
