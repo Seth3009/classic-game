@@ -1,3 +1,8 @@
+let round = 1;
+const player = document.querySelector('.player-hand');
+const computer = document.querySelector('.computer-hand');
+const board = document.querySelector('.scoreboard');
+
 function computerPlay(){
     const num = Math.floor(Math.random()*3); 
     const arr = ['Rock','Paper','Scissors'];
@@ -5,57 +10,74 @@ function computerPlay(){
 }
 
 function playRound(playerSelection, computerSelection) {
-    try {
-        let p = playerSelection.toLowerCase();
-        let c = computerSelection.toLowerCase();
-    
-        if(c===p) {
-            return 'Draw!!!'
-        }
-        else {
-            switch (p) {
-                case 'rock':
-                    if(c === 'paper') {return "You Lose! Paper beats Rock"};
-                    if(c === 'scissors') {return "You Win! Rock beats Scissors"};
-                case 'paper':
-                    if(c === 'scissors') {return "You Lose! Scissors beats Paper"};
-                    if(c === 'rock') {return "You Win! Paper beats Rock"};
-                case 'scissors':
-                    if(c === 'paper') {return "You Win! Scissors beats Paper"};
-                    if(c === 'rock') {return "You Lose! Rock beats Scissors"};
+    let result = "";
+    let win = false;
+    if(round <= 5){
+        try {
+            let p = playerSelection.toLowerCase();
+            let c = computerSelection.toLowerCase();
+        
+            if(c===p) {
+                result = 'Draw!!!';
             }
+            else {
+                
+                if(p === 'rock' && c === 'paper') {result = "You Lose! Paper beats Rock"};
+                if(p === 'rock' && c === 'scissors') {
+                    result =  "You Win! Rock beats Scissors";
+                    win = true;
+                };
+                if(p === 'paper' && c === 'scissors') {result =  "You Lose! Scissors beats Paper"};
+                if(p === 'paper' && c === 'rock') {
+                    result =  "You Win! Paper beats Rock";
+                    win = true;
+                }
+                if(p === 'scissors' && c === 'paper') {
+                    result = "You Win! Scissors beats Paper";
+                    win = true;
+                }
+                if(p === 'scissors' && c === 'rock') {result =  "You Lose! Rock beats Scissors"};
+            }
+
+            createResult(p, c, win, result);
+        } catch(e) {
+            console.log(e);
         }
-    } catch(e) {
-        console.log(e)
+        round++;
     }
 }
 
-function game(){
-    for (let i = 1; i < 6; i++){
-        const playerSelection = playerHand();
-        const computerSelection = computerPlay();
-        if(playerSelection === undefined){
-            console.log("Game " + i + ": " + "Unknown hand form, you Lose!")
-            console.log("============================");
-        } else {
-        console.log("Player hand: " + playerSelection);
-        console.log("Bot hand: " + computerSelection);
-        console.log("Game " + i + ": " + playRound(playerSelection, computerSelection));
-        console.log("============================");
-    }}
-}
-
-function playerHand(){
-    
-        let hand = window.prompt("Show me your hand! (1=Rock, 2=Paper, 3=Scissors)");
-        let arr = ['Rock','Paper','Scissors'];
-        if(hand > 0 && hand < 4){
-            return arr[hand - 1]
-        } else {
-            window.alert("Only 1 - 3 are allowed!"); 
-        }
+function showImage(p, c){
+    // player
+    let pImg = document.createElement('img');
+    player.appendChild(pImg);
+    pImg.src = `./${p}.jpg`;
+    let cImg = document.createElement('img');
+    computer.appendChild(cImg);
+    cImg.src = `./${c}.jpg`;
     
 }
 
+function createResult(p, c, isWin, text){
+    showImage(p,c);
+    let d = document.createElement('div');
+    board.appendChild(d);
+    d.classList.add('result');
+    d.textContent = text;
+    
+}
 
-game();
+function resetGame(){
+    round = 1;
+    let pImg = player.querySelectorAll('img');
+    let cImg = computer.querySelectorAll('img');
+    let result = board.querySelectorAll('.result')
+    pImg.forEach(p => p.remove());
+    cImg.forEach(c => c.remove());
+    result.forEach(r => r.remove());
+    
+}
+
+const hands = document.querySelectorAll('.btn');
+hands.forEach(hand => hand.addEventListener('click', hand.id == 'reset' ? resetGame : () => playRound(hand.id, computerPlay())));
+// game();

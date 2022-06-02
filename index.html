@@ -5,8 +5,148 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock, Scissor, and Paper</title>
+    <style>
+        html, body { height: 100%;}
+        .container{
+            /* display:flex;
+            justify-content: center; */
+            /* align-items: center; */
+            height: 100%
+        }
+        .player {
+           width:300px;
+           display: flex;
+           flex-wrap: wrap;
+           align-content: flex-start;
+           justify-content: center;
+           height:17%;
+        }
+
+        .btn {
+            height: 50px;
+            width: 90px;
+            background-color: rgb(73, 168, 247);
+            border-radius: 3px;
+        }
+
+        .reset-div{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin : 10px;
+        }
+
+        #reset{
+            width: 280px;
+        }
+
+        .board{
+            display: flex;
+            justify-content: space-between;
+            height: 75%;
+        }
+
+        /* .inboard{
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+        } */
+
+        .player-hand{
+            background-color: aliceblue;
+            border: 1px solid black;
+            width: 20%;
+        }
+        .scoreboard{
+            background-color: bisque;
+            border: 1px solid black;
+            width: 60%;   
+        }
+        .computer-hand{
+            background-color: blueviolet;
+            border: 1px solid black;
+            width: 20%;
+        }
+
+       img{
+        height: 15%;
+        width : 40%;
+        display : flex;
+        align-Items : center;
+        justify-Content : center;    
+        margin-Top : 3%;
+        border-Radius : 50%;
+       }
+
+       .result{
+        height: 15%;
+        width: 80%;
+        display: flex;
+        align-Items: center;
+        justify-Content: center;    
+        margin-Top: 1%;
+        background-Color: green;
+        border-radius: 10px;
+        font-size: large;
+        color: white;
+        font-weight: bold;
+        animation: fadeIn 5s;
+        -webkit-animation: fadeIn 5s;
+        -moz-animation: fadeIn 5s;
+        -o-animation: fadeIn 5s;
+        -ms-animation: fadeIn 5s;
+       }
+
+       
+        @keyframes fadeIn {
+        0% {opacity:0;}
+        100% {opacity:1;}
+        }
+
+        @-moz-keyframes fadeIn {
+        0% {opacity:0;}
+        100% {opacity:1;}
+        }
+
+        @-webkit-keyframes fadeIn {
+        0% {opacity:0;}
+        100% {opacity:1;}
+        }
+
+        @-o-keyframes fadeIn {
+        0% {opacity:0;}
+        100% {opacity:1;}
+        }
+
+        @-ms-keyframes fadeIn {
+        0% {opacity:0;}
+        100% {opacity:1;}
+        }
+        
+    </style>
 </head>
 <body>
+    <div align="center" class="container">
+        
+        <div class="player">   
+            <div class="reset-div">
+                <button class="btn" id="reset">Start Match</button>
+            </div>
+            <div>         
+                <button class='btn' id="rock">Rock</button>
+                <button class='btn' id="paper">Paper</button>
+                <button class='btn' id="scissors">Scissors</button>
+            </div>
+        </div>
+        <hr>
+
+        <div class="board">
+            <div class="inboard player-hand"><p>Player</p><hr></div>
+            <div class="inboard scoreboard"><p>Score Board</p><hr></div>
+            <div class="inboard computer-hand"><p>Computer</p><hr></div>
+        </div>
+    </div>
+    
     <script src="./javascript.js"></script>
 </body>
 </html>
