@@ -1,4 +1,8 @@
 let round = 1;
+let pScore = 0;
+let cScore = 0;
+const pScr = document.querySelector('.pScore');
+const cScr = document.querySelector('.cScore');
 const player = document.querySelector('.player-hand');
 const computer = document.querySelector('.computer-hand');
 const board = document.querySelector('.scoreboard');
@@ -37,14 +41,17 @@ function playRound(playerSelection, computerSelection) {
                     win = true;
                 }
                 if(p === 'scissors' && c === 'rock') {result =  "You Lose! Rock beats Scissors"};
+                win ? pScore++ : cScore++;
             }
-
-            createResult(p, c, win, result);
+            
+            createResult(p, c, result);
+            if(round == 5) {pScore === cScore ? createStamp('Draw!!!') : pScore > cScore ? createStamp("You Win!!!") : createStamp("You Lose!!!");}
         } catch(e) {
             console.log(e);
         }
+        
         round++;
-    }
+    } 
 }
 
 function showImage(p, c){
@@ -58,24 +65,39 @@ function showImage(p, c){
     
 }
 
-function createResult(p, c, isWin, text){
+function createResult(p, c, text){
     showImage(p,c);
     let d = document.createElement('div');
+    pScr.textContent = pScore;
+    cScr.textContent = cScore;
     board.appendChild(d);
     d.classList.add('result');
     d.textContent = text;
     
 }
 
+function createStamp (text){
+    let b = document.querySelector('.board');
+    let s = document.createElement('div');
+    b.appendChild(s);
+    s.setAttribute('id','stamp');
+    s.textContent = text;
+}
+
 function resetGame(){
-    round = 1;
+    round = 1;    
     let pImg = player.querySelectorAll('img');
     let cImg = computer.querySelectorAll('img');
-    let result = board.querySelectorAll('.result')
+    let result = board.querySelectorAll('.result');
+    let score = document.querySelectorAll('.score');
     pImg.forEach(p => p.remove());
     cImg.forEach(c => c.remove());
     result.forEach(r => r.remove());
-    
+    pScr.textContent = '0';
+    cScr.textContent = '0';
+    pScore = 0;
+    cScore = 0;
+    if(document.querySelector('#stamp')) document.querySelector('#stamp').remove();
 }
 
 const hands = document.querySelectorAll('.btn');
